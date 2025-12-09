@@ -59,6 +59,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET,"/categories").permitAll()
                         .requestMatchers(HttpMethod.GET,"/tags").permitAll()
                         .requestMatchers(HttpMethod.GET,"/posts").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/tags").authenticated()
                         .anyRequest().authenticated()
                 )
                 .csrf(crsf->
