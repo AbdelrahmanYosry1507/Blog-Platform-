@@ -31,7 +31,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     @Value("${jwt.secret}")
     private String secretKey ;
-    private final long jwtExpiryMs = 24000L;
+    private final long jwtExpiryMs = 1000 * 60 * 60; // 1 hour
 
     @Override
     public UserDetails authenticateUser(String email, String password) {

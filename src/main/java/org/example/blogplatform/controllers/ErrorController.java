@@ -1,5 +1,6 @@
 package org.example.blogplatform.controllers;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.example.blogplatform.domain.dtos.ApiErrorResponse;
 import org.springframework.http.HttpStatus;
@@ -56,6 +57,15 @@ public class ErrorController {
                 .errors(List.of(ApiErrorResponse.FieldErrors.builder().field("error").message(e.getMessage()).build()))
                 .build();
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorResponse);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ApiErrorResponse> handleEntityNotFoundException(EntityNotFoundException e) {
+        ApiErrorResponse errorResponse = ApiErrorResponse.builder()
+                .statues(HttpStatus.NOT_FOUND.value())
+                .message(e.getMessage())
+                .build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
     }
 
 }

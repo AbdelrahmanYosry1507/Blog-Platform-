@@ -1,5 +1,6 @@
 package org.example.blogplatform.Services.impl;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.example.blogplatform.Services.CategoryService;
 import org.example.blogplatform.domain.entities.Category;
@@ -40,5 +41,11 @@ public class CategoryServiceImpl implements CategoryService {
         }else {
             throw new IllegalArgumentException("Category not found:= " + id);
         }
+    }
+
+    @Override
+    public Category getCategoryById(UUID id) {
+
+        return categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Category not found:= " + id));
     }
 }
